@@ -44,74 +44,89 @@ https://templatemo.com/tm-546-sixteen-clothing
 
     <!-- Header -->
     <header class="">
-      <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg">
         <div class="container">
-          <a class="navbar-brand" href="index.html"><h2>Sixteen <em>Clothing</em></h2></a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="index.html">Home
-                  <span class="sr-only">(current)</span>
-                </a>
-              </li> 
-              <li class="nav-item">
-                <a class="nav-link" href="products.html">Our Products</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="about.html">About Us</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact Us</a>
-              </li>
-              <li class="nav-item">
-              @if (Route::has('login'))
-                            <nav class="-mx-3 flex flex-1 justify-end">
-                                <!-- @auth
+            <a class="navbar-brand" href="{{ url('/') }}"><h2>Sixteen <em>Clothing</em></h2></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ url('/') }}">Home<span class="sr-only">(current)</span></a>
+                    </li> 
+                    <li class="nav-item"><a class="nav-link" href="products.html">Our Products</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+                    <!-- <li class="nav-item">
+                        @if (Route::has('login'))
+                            @auth
                                 <li class="nav-item">
-                                  <a class="nav-link" href="contact.html"><i class="fa-solid fa-cart-shopping"></i> Cart[{{$count}}]</a>
-                                </li> -->
-                                @if (Auth::id())
-                                <li class="nav-item">
-                                     <a class="nav-link" href="{{url('showcart')}}"><i class="fa-solid fa-cart-shopping"></i> Cart[{{$count}}]</a>
-                               </li>
-@endif
-
-                                    <x-app-layout></x-app-layout>
-                                @else
-                                    <li><a class="nav-link"
-                                        href="{{ route('login') }}">
-                                        Log in
-                                    </a>
-                                    </li>
-
-                                    @if (Route::has('register'))
-                                       <li><a class="nav-link"
-                                            href="{{ route('register') }}"
-                                        >
-                                            Register
-                                        </a>
-                                        </li>
-                                    @endif
-                                @endauth
-                            </nav>
+                                    <a class="nav-link" href="{{ url('showcart') }}"><i class="fa-solid fa-cart-shopping"></i> Cart[{{$count}}]</a>
+                                </li>
+                            @else
+                                <li><a class="nav-link" href="{{ route('login') }}">Log in</a></li>
+                                @if (Route::has('register'))
+                                    <li><a class="nav-link" href="{{ route('register') }}">Register</a></li>
+                                @endif
+                            @endauth
                         @endif
-                        </li>
-            </ul>
-          </div>
+                    </li> -->
+                    <!-- <li class="nav-item">
+    @if (Route::has('login'))
+        @auth
+            <a class="nav-link" href="{{ url('showcart') }}">
+                <i class="fa-solid fa-cart-shopping"></i> Cart [{{ $count ?? 0 }}]
+            </a>
+            <a class="nav-link" href="{{ route('logout') }}" 
+               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log out</a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+        @else
+            <a class="nav-link" href="{{ route('login') }}">Log in</a>
+            @if (Route::has('register'))
+                <a class="nav-link" href="{{ route('register') }}">Register</a>
+            @endif
+        @endauth
+    @endif
+</li> -->
+<li class="nav-item">
+    @if (Route::has('login'))
+        @auth
+            <a class="nav-link" href="{{ url('showcart') }}">
+                <i class="fa-solid fa-cart-shopping"></i> Cart [{{ $count ?? 0 }}]
+            </a>
+            <span class="nav-link">Welcome, {{ Auth::user()->name }}!</span>
+            <a class="nav-link" href="{{ route('logout') }}" 
+               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log out</a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+        @else
+            <a class="nav-link" href="{{ route('login') }}">Log in</a>
+            @if (Route::has('register'))
+                <a class="nav-link" href="{{ route('register') }}">Register</a>
+            @endif
+        @endauth
+    @endif
+</li>
+
+
+                </ul>
+            </div>
         </div>
-      </nav>
-      @if(session()->has('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session()->get('success') }}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-@endif
-    </header>
+    </nav>
+    @if(session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session()->get('success') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+</header>
+
 
     <!-- Page Content -->
     <!-- Banner Starts Here -->
